@@ -47,11 +47,9 @@ class PayViewModel @Inject constructor(private val payRepository: PayRepository,
 //        }
 //    }
 
-    private fun handleResponse(movieList: List<PaymentMethod>) {
+    private fun handleResponse(paymentList: List<PaymentMethod>) {
         showHideProgress.value = false
-
-//        qtyItemsToShow = moviesRepository.qtyItemsRequest
-//        mostPopularMovies.value = movieList
+        paymentMethods.value = paymentList
     }
 
 //    private fun handleResponseSearch(movieList: List<MovieSearch>) {

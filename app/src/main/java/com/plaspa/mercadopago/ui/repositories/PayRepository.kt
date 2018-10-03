@@ -19,11 +19,11 @@ import javax.inject.Inject
 class PayRepository @Inject constructor(retrofit: Retrofit) {
 
     private val payApi by lazy { retrofit.create(PayServices::class.java) }
-    var qtyItemsRequest: Int  = 0
 
     fun getPaymentMethods(): Observable<List<PaymentMethod>> {
         return payApi.getPaymentMethods(Constants.PUBLIC_KEY)
                 .concatMap { httpValidation(it) }
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
