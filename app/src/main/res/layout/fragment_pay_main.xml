@@ -3,8 +3,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorAccent">
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/fr_pay_main_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_default"
+        android:layout_marginStart="@dimen/margin_default"
+        android:text="@string/abonar_monto"
+        android:textSize="@dimen/txt_normal_up"
+        android:textColor="@color/colorTextPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/fr_pay_main_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:layout_marginStart="@dimen/margin_default"
+        android:background="@drawable/border_primary"
+        android:textColor="@color/white"
+        android:text="@string/pagar_monto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/fr_pay_main_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:textColor="@color/colorPrimary"
+        android:gravity="center"
+        android:text="@string/default_money"
+        android:paddingBottom="@dimen/margin_default"
+        android:paddingTop="@dimen/margin_default"
+        android:background="@drawable/border_transparent"
+        android:textSize="@dimen/txt_bigger"
+        app:layout_constraintBottom_toTopOf="@+id/fr_pay_main_button"
+        app:layout_constraintEnd_toEndOf="@+id/fr_pay_main_button"
+        app:layout_constraintStart_toStartOf="@+id/fr_pay_main_button"
+        app:layout_constraintTop_toBottomOf="@+id/fr_pay_main_title" />
 
 
 </android.support.constraint.ConstraintLayout>

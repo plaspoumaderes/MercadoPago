@@ -1,4 +1,4 @@
-package com.plaspa.film.service
+package com.plaspa.mercadopago.commons
 
 /**
  * Created by Pedro on 13/06/2018.
@@ -11,6 +11,10 @@ class Constants {
 
         const val GET_PAYMENT_METHODS : String = "v1/payment_methods"
         const val GET_PAYMENT_INSTALLMENTS : String = "v1/payment_methods/installments"
-        const val GET_CARD_ISSUERS : String = "v1/payment_methods/card_issuers?public_key=$PUBLIC_KEY&payment_method_id={method}"
+        const val GET_CARD_ISSUERS : String = "v1/payment_methods/card_issuers"
+
+        const val QUERY_PUBLIC_KEY : String = "public_key"
+        const val QUERY_PAYMENT_METHOD : String = "payment_method_id"
+        const val QUERY_AMOUNT : String = "amount"
     }
 }

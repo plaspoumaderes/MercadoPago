@@ -1,6 +1,6 @@
 package com.plaspa.mercadopago.di.module
 
-import com.plaspa.film.service.Constants
+import com.plaspa.mercadopago.commons.Constants
 import com.plaspa.mercadopago.MercadoPagoApplication
 import com.plaspa.mercadopago.ui.repositories.PayRepository
 import dagger.Module

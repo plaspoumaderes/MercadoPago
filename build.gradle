@@ -39,4 +39,5 @@ ext{
     rxJava = "2.1.7"
     retrofitVersion = "2.3.0"
     glideVersion = "4.7.1"
+    dataBinding = "3.0.1"
 }

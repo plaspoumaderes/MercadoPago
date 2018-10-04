@@ -49,4 +49,10 @@ abstract class BaseFragment : Fragment() {
         removeObserver(observer)
         observe(owner, observer)
     }
+
+    protected fun showErrorHandler(isError: Boolean?) {
+        isError?.let {
+            showSnackWithAction(R.string.no_internet_connection, R.string.refresh, {} )
+        }
+    }
 }

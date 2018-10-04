@@ -7,4 +7,10 @@
     <string name="no_internet_connection">No internet connection</string>
     <string name="refresh">Refresh</string>
 
+    <!-- Pay Main Fragment -->
+    <string name="abonar_monto">Abonar monto</string>
+    <string name="pagar_monto">Pagar monto</string>
+    <string name="default_money">$0</string>
+    <string name="invalid_amount">Monto invalido</string>
+
 </resources>

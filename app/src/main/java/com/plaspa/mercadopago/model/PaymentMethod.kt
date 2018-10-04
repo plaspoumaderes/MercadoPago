@@ -6,7 +6,8 @@ import org.json.JSONObject
 /**
  * Created by Pedro on 02/10/2018.
  */
-class PaymentMethod(var id: String, var name: String,
+class PaymentMethod(var id: String,
+                    var name: String,
                     var payment_type_id: String,
                     var status: String,
                     var secure_thumbnail: String,
