@@ -18,7 +18,7 @@ interface PayServices {
             : Observable<Response<List<PaymentMethod>>>
 
     @GET(Constants.GET_PAYMENT_INSTALLMENTS)
-    fun getPaymentInstallments(@Query(Constants.QUERY_PUBLIC_KEY) api_key: String, @Query(Constants.QUERY_AMOUNT) amount: Float, @Query(Constants.QUERY_PAYMENT_METHOD) payId: String, @Query("issuer.id") id: Int)
+    fun getPaymentInstallments(@Query(Constants.QUERY_PUBLIC_KEY) api_key: String, @Query(Constants.QUERY_AMOUNT) amount: Float, @Query(Constants.QUERY_PAYMENT_METHOD) payId: String, @Query(Constants.QUERY_ISSUER_ID) id: String)
             : Observable<Response<List<Installments>>>
 
     @GET(Constants.GET_CARD_ISSUERS)

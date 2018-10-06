@@ -19,11 +19,11 @@ class AlertUtil {
             builder.create().show()
         }
 
-        fun showQuestion(mContext: Context, imageResource: Int, titleResource: Int, bodyResource: Int, positiveButton: Int, negativeButton: Int, onPositiveListener: DialogInterface.OnClickListener, onNegativeListener: DialogInterface.OnClickListener? = null) {
+        fun showQuestion(mContext: Context, imageResource: Int, titleResource: Int, body: String, positiveButton: Int, negativeButton: Int, onPositiveListener: DialogInterface.OnClickListener, onNegativeListener: DialogInterface.OnClickListener? = null) {
             val builder = AlertDialog.Builder(mContext)
                     .setIcon(imageResource)
                     .setTitle(titleResource)
-                    .setMessage(bodyResource)
+                    .setMessage(body)
                     .setPositiveButton(positiveButton, onPositiveListener)
                     .setNegativeButton(negativeButton, onNegativeListener)
             builder.create().show()

@@ -8,12 +8,9 @@ fun AppCompatActivity.replaceFragment(withAnimation: Boolean, container: Int, fr
                                       addBackStack: Boolean) {
     supportFragmentManager.inTransaction {
         when {
-//            withAnimation -> fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,
-//                android.R.anim.slide_in_left, android.R.anim.slide_out_right)
             args != null -> fragment.arguments = args
-            addBackStack -> addToBackStack(fragment.tag+Math.random())
         }
-
+        if (addBackStack)  addToBackStack(fragment.tag+Math.random())
         replace(container, fragment)
     }
 }

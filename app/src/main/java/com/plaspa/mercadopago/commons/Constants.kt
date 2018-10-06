@@ -15,6 +15,7 @@ class Constants {
 
         const val QUERY_PUBLIC_KEY : String = "public_key"
         const val QUERY_PAYMENT_METHOD : String = "payment_method_id"
+        const val QUERY_ISSUER_ID : String = "issuer.id"
         const val QUERY_AMOUNT : String = "amount"
     }
 }

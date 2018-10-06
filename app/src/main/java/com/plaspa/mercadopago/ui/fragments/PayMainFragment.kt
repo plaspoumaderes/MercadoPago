@@ -1,24 +1,25 @@
 package com.plaspa.mercadopago.ui.fragments
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.os.Handler
+import android.support.constraint.ConstraintLayout
+import android.support.constraint.ConstraintSet
+import android.support.transition.AutoTransition
+import android.support.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
+import android.view.animation.AccelerateDecelerateInterpolator
 import com.plaspa.mercadopago.R
 import com.plaspa.mercadopago.commons.base.BaseActivity
 import com.plaspa.mercadopago.commons.base.BaseFragment
 import com.plaspa.mercadopago.commons.extension.replaceFragment
 import com.plaspa.mercadopago.commons.utils.AlertUtil
 import com.plaspa.mercadopago.commons.utils.MoneyTextWatcher
-import com.plaspa.mercadopago.model.CardIssuers
-import com.plaspa.mercadopago.model.Installments
-import com.plaspa.mercadopago.model.PaymentMethod
 import com.plaspa.mercadopago.ui.PayActivity
 import com.plaspa.mercadopago.ui.viewmodel.PayViewModel
+import kotlinx.android.synthetic.main.fragment_pay_main.*
 import kotlinx.android.synthetic.main.fragment_pay_main.view.*
 
 /**
@@ -38,6 +39,9 @@ class PayMainFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val rootView = super.onCreateView(inflater, container, savedInstanceState)
+        savedInstanceState?.let {
+            rootView.fr_pay_main_amount.setText(it.get((activity as PayActivity).AMOUNT).toString())
+        }
         addListener(rootView)
         return rootView
     }
@@ -50,44 +54,8 @@ class PayMainFragment : BaseFragment() {
                 (activity as PayActivity).amountPay = amount
                 (activity as BaseActivity).replaceFragment(false, R.id.fragment_container, PayMethodFragment.newInstance(), Bundle(), true)
             } else {
-                activity?.let { act -> AlertUtil.showPopup(act, R.mipmap.ic_launcher, R.string.app_name, R.string.invalid_amount) }
+                activity?.let { act -> AlertUtil.showPopup(act, R.drawable.ic_payment, R.string.app_name, R.string.invalid_amount) }
             }
-        }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        viewModel.paymentMethods.reObserve(this, Observer { loadPaymentMethod(it) })
-        viewModel.cardIssuers.reObserve(this, Observer { loadCardIssuers(it) })
-        viewModel.installments.reObserve(this, Observer { loadInstallments(it) })
-
-        viewModel.errorConnection.reObserve(this, Observer { showErrorHandler(it) })
-        viewModel.errorService.reObserve(this, Observer { showToast(getString(R.string.errorService), Toast.LENGTH_SHORT) })
-
-    }
-
-    private fun loadInstallments(list: List<Installments>?) {
-        list?.let {
-
-        }
-    }
-
-    private fun loadCardIssuers(list: List<CardIssuers>?) {
-        list?.let {
-
-        }
-    }
-
-    private fun loadPaymentMethod(list: List<PaymentMethod>?) {
-        list?.let {
-
-        }
-    }
-
-    private fun showHideProgressBar(showPB: Boolean?) {
-        showPB?.let {
-
         }
     }
 

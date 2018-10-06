@@ -2,6 +2,7 @@ package com.plaspa.mercadopago.ui.repositories
 
 import com.plaspa.mercadopago.commons.Constants
 import com.plaspa.mercadopago.model.CardIssuers
+import com.plaspa.mercadopago.model.Installments
 import com.plaspa.mercadopago.model.PaymentMethod
 import com.plaspa.mercadopago.ui.services.PayServices
 import io.reactivex.Observable
@@ -29,6 +30,13 @@ class PayRepository @Inject constructor(retrofit: Retrofit) {
 
     fun getCardIssuers(payMethodId: String): Observable<List<CardIssuers>> {
         return payApi.getCardIssuers(Constants.PUBLIC_KEY, payMethodId)
+                .concatMap { httpValidation(it) }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun getInstallments(amount: Float, payMethodId: String, issuerId: String) : Observable<List<Installments>> {
+        return payApi.getPaymentInstallments(Constants.PUBLIC_KEY, amount,payMethodId,issuerId)
                 .concatMap { httpValidation(it) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

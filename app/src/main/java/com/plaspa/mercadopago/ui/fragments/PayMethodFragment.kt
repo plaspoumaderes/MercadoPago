@@ -43,7 +43,7 @@ class PayMethodFragment : BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        mBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_pay_method, container, false)
+        mBinding = DataBindingUtil.inflate(inflater,layoutId(), container, false)
         mBinding.viewModel = viewModel
         val rootView = mBinding.root
         loadAdapter(rootView)
@@ -66,7 +66,6 @@ class PayMethodFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.paymentMethods.reObserve(this, Observer { loadPaymentMethod(it) })
-        viewModel.showProgress.reObserve(this, Observer { showHideProgressBar(it) })
         viewModel.errorConnection.reObserve(this, Observer { showErrorHandler(it) })
         viewModel.errorService.reObserve(this, Observer { showToast(getString(R.string.errorService), Toast.LENGTH_SHORT) })
     }
@@ -74,12 +73,6 @@ class PayMethodFragment : BaseFragment() {
     private fun loadPaymentMethod(list: List<PaymentMethod>?) {
         list?.let {
             adapterPay.refreshList(it)
-        }
-    }
-
-    private fun showHideProgressBar(showPB: Boolean?) {
-        showPB?.let {
-            viewModel.showProgressObs.set(it)
         }
     }
 

@@ -23,7 +23,6 @@ class PayViewModel @Inject constructor(private val payRepository: PayRepository,
     var errorConnection: MutableLiveData<Boolean> = MutableLiveData()
     var errorService: MutableLiveData<Boolean> = MutableLiveData()
 
-    var showProgress: MutableLiveData<Boolean> = MutableLiveData()
     var showProgressObs = ObservableField<Boolean>()
 
     init {
@@ -33,9 +32,9 @@ class PayViewModel @Inject constructor(private val payRepository: PayRepository,
     fun getPaymentMethods() {
         when (networkHandler.isConnected) {
             true -> {
-                showProgress.value = true
+                showProgressObs.set(true)
                 payRepository.getPaymentMethods().subscribe({ paymentList ->
-                    showProgress.value = false
+                    showProgressObs.set(false)
                     paymentMethods.value = paymentList
                 }, this::handleError)
             }
@@ -46,9 +45,9 @@ class PayViewModel @Inject constructor(private val payRepository: PayRepository,
     fun getCardIssuers(payMethodId : String) {
         when (networkHandler.isConnected) {
             true -> {
-                showProgress.value = true
+                showProgressObs.set(true)
                 payRepository.getCardIssuers(payMethodId).subscribe({ cardIssuersList ->
-                    showProgress.value = false
+                    showProgressObs.set(false)
                     cardIssuers.value = cardIssuersList
                 }, this::handleError)
             }
@@ -56,8 +55,22 @@ class PayViewModel @Inject constructor(private val payRepository: PayRepository,
         }
     }
 
+
+    fun getInstallments(amount: Float, payMethodId: String, issuerId: String) {
+        when (networkHandler.isConnected) {
+            true -> {
+                showProgressObs.set(true)
+                payRepository.getInstallments(amount,payMethodId,issuerId).subscribe({ installmentsList ->
+                    showProgressObs.set(false)
+                    installments.value = installmentsList
+                }, this::handleError)
+            }
+            else -> errorConnection.value = true
+        }
+    }
+
     private fun handleError(error: Throwable) {
-        showProgress.value = false
+        showProgressObs.set(false)
         Log.e(PayViewModel::class.java.name, error.message + error.cause)
         errorService.value = true
     }

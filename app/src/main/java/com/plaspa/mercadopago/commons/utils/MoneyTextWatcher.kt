@@ -21,14 +21,20 @@ class MoneyTextWatcher(editText: EditText) : TextWatcher {
     override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
 
     override fun afterTextChanged(editable: Editable) {
-        //TODO: Arreglar valores con decimales
         val editText = editTextWeakReference.get() ?: return
-        val s = editable.toString().replace("$","").replace(",","")
+        var s = editable.toString().replace("$","").replace(",","")
         if (s.isEmpty()) return
-        if (s.toInt().toString().length > 10) return
+        val addPoint : Boolean = (s[s.lastIndex] == '.')
+        val addFirstDecimal : Boolean = (s[s.lastIndex - 1] == '.')
+        if (addPoint) s =  s.replace(".","")
+        var value = s.toFloat()
+        if (value.toInt().toString().length > 10) return
         editText.removeTextChangedListener(this)
         val format = NumberFormat.getCurrencyInstance(Locale.CANADA)
-        val amount = format.format(s.toFloat()).replace(".00","")
+        //var amount = format.format(String.format("%.2f", value)).replace(".00","")
+        var amount = format.format(value).replace(".00","")
+        if (addPoint) amount += "."
+        if (addFirstDecimal) amount = amount.substring(0,amount.lastIndex - 1)
         editText.setText(amount)
         editText.setSelection(amount.length)
         editText.addTextChangedListener(this)

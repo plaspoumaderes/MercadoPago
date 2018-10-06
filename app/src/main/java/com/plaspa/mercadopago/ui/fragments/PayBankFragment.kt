@@ -11,7 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.plaspa.mercadopago.R
+import com.plaspa.mercadopago.commons.base.BaseActivity
 import com.plaspa.mercadopago.commons.base.BaseFragment
+import com.plaspa.mercadopago.commons.extension.replaceFragment
 import com.plaspa.mercadopago.databinding.FragmentPayBankBinding
 import com.plaspa.mercadopago.model.CardIssuers
 import com.plaspa.mercadopago.ui.PayActivity
@@ -27,7 +29,7 @@ class PayBankFragment: BaseFragment() {
 
     private lateinit var viewModel: PayViewModel
 
-    override fun layoutId(): Int = R.layout.fragment_pay_method
+    override fun layoutId(): Int = R.layout.fragment_pay_bank
 
     private lateinit var adapterPay: PayBankViewAdapter
 
@@ -43,7 +45,7 @@ class PayBankFragment: BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_pay_bank, container, false)
+        mBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
         mBinding.viewModel = viewModel
         val rootView = mBinding.root
         loadAdapter(rootView)
@@ -59,13 +61,13 @@ class PayBankFragment: BaseFragment() {
     }
 
     private fun onItemClick(item: CardIssuers) {
-        Log.i("Test" , "itemOnClick: $item")
+        (activity as PayActivity).cardIssuers = item
+        (activity as BaseActivity).replaceFragment(false, R.id.fragment_container, PayCompleteFragment.newInstance(), Bundle(), true)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.cardIssuers.reObserve(this, Observer { loadCardsIssuers(it) })
-        viewModel.showProgress.reObserve(this, Observer { showHideProgressBar(it) })
         viewModel.errorConnection.reObserve(this, Observer { showErrorHandler(it) })
         viewModel.errorService.reObserve(this, Observer { showToast(getString(R.string.errorService), Toast.LENGTH_SHORT) })
     }
@@ -73,12 +75,6 @@ class PayBankFragment: BaseFragment() {
     private fun loadCardsIssuers(list: List<CardIssuers>?) {
         list?.let {
             adapterPay.refreshList(it)
-        }
-    }
-
-    private fun showHideProgressBar(showPB: Boolean?) {
-        showPB?.let {
-            viewModel.showProgressObs.set(it)
         }
     }
 
